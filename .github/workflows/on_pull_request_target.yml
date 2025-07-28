@@ -1,0 +1,15 @@
+name: On Pull Request Target
+on:
+  pull_request_target:
+    types:
+      - opened
+jobs:
+  on-pull-request:
+    name: On Pull Request
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: PullRequestHandler
+        uses: ScoopInstaller/GithubActions@main
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

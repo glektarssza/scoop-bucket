@@ -1,0 +1,9 @@
+name: Manual Excavate
+on:
+  workflow_dispatch:
+jobs:
+  manual-excavate:
+    name: Manual Excavate
+    uses: ./.github/workflows/excavate.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}

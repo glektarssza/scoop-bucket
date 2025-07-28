@@ -1,0 +1,19 @@
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: |
+          The token to use to make authenticated GitHub API calls.
+        required: true
+name: Excavate
+jobs:
+  excavate:
+    name: Excavate
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Excavate
+        uses: ScoopInstaller/GithubActions@main
+        env:
+          GITHUB_TOKEN: ${{secrets.github-token}}
+          SKIP_UPDATED: 1

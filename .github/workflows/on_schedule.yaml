@@ -1,0 +1,10 @@
+name: On Schedule
+on:
+  schedule:
+    - cron: "20 */4 * * *"
+jobs:
+  excavate:
+    name: Excavate
+    uses: ./.github/workflows/excavate.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}

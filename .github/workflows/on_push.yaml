@@ -1,0 +1,12 @@
+name: On Push
+on:
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  push:
+    name: Push
+    uses: ./.github/workflows/test.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
