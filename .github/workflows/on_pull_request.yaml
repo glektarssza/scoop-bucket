@@ -4,6 +4,9 @@ on:
 jobs:
   on-pull:
     name: On Pull
+    permissions:
+      # -- Needed to leave comments
+      issues: write
     uses: ./.github/workflows/test.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
