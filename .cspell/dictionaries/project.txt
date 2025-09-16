@@ -1,4 +1,6 @@
+checkver
 g'lek
 glek
 glektarssza
 tarssza
+winsetview
