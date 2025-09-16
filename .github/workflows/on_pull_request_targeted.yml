@@ -1,4 +1,4 @@
-name: On Pull Request Target
+name: On Pull Request Targeted
 on:
   pull_request_target:
     types:
@@ -10,6 +10,8 @@ jobs:
     permissions:
       # -- Needed to leave comments
       issues: write
+      # -- Needed to leave comments
+      pull-requests: write
     steps:
       - uses: actions/checkout@main
       - name: PullRequestHandler

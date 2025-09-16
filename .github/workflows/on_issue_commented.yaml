@@ -1,0 +1,21 @@
+name: On Issue Commented
+on:
+  issue_comment:
+    types:
+      - created
+jobs:
+  pullRequestHandler:
+    name: On Issue Commented
+    runs-on: windows-latest
+    permissions:
+      # -- Needed to leave comments
+      issues: write
+      # -- Needed to leave comments
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@main
+      - name: Pull Request Validator
+        uses: ScoopInstaller/GithubActions@main
+        if: startsWith(github.event.comment.body, '/verify')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
