@@ -123,9 +123,39 @@ Describe 'Style constraints for non-binary project files' -ForEach @(, $script:r
         }
     }
 
-    It 'file newlines are CRLF' {
+    It 'non-Batch file newlines are Unix-style' {
         $badFiles = @(
             foreach ($file in $script:files) {
+                if ($file.Extension -eq ".bat" -or $file.Extension -eq ".cmd") {
+                    return
+                }
+                $content = [System.IO.File]::ReadAllText($file)
+                if (!$content) {
+                    throw "File contents are null: $($file)"
+                }
+                $lines = [regex]::split($content, '\n')
+                $lineCount = $lines.Count
+
+                for ($i = 0; $i -lt $lineCount; $i++) {
+                    if ( [regex]::match($lines[$i], '\r').success ) {
+                        $file
+                        break
+                    }
+                }
+            }
+        )
+
+        if ($badFiles.Count -gt 0) {
+            throw "The following files have non-Unix-style line endings: `r`n`r`n$($badFiles -join "`r`n")"
+        }
+    }
+
+    It 'Batch file newlines are Windows-style' {
+        $badFiles = @(
+            foreach ($file in $script:files) {
+                if ($file.Extension -ne ".bat" -or $file.Extension -ne ".cmd") {
+                    return
+                }
                 $content = [System.IO.File]::ReadAllText($file)
                 if (!$content) {
                     throw "File contents are null: $($file)"
@@ -143,7 +173,7 @@ Describe 'Style constraints for non-binary project files' -ForEach @(, $script:r
         )
 
         if ($badFiles.Count -gt 0) {
-            throw "The following files have non-CRLF line endings: `r`n`r`n$($badFiles -join "`r`n")"
+            throw "The following files have non-Unix-style line endings: `r`n`r`n$($badFiles -join "`r`n")"
         }
     }
 
