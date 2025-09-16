@@ -5,6 +5,9 @@ on:
 jobs:
   excavate:
     name: Excavate
+    permissions:
+      # -- Needed to write repository contents on update
+      contents: write
     uses: ./.github/workflows/excavate.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
