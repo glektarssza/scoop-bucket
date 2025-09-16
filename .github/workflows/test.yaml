@@ -30,7 +30,7 @@ jobs:
         shell: powershell
         run: |
           $env:SCOOP_HOME="$(Convert-Path '.\scoop_core')";
-          Copy-Item -Force .\custom_bucket\overrides\tests\*.ps1 .\scoop_core\test\;
+          Copy-Item -Force .\custom_bucket\overrides\test\*.ps1 .\scoop_core\test\;
       - id: init-and-test
         name: Init and Test Bucket
         shell: powershell
@@ -61,7 +61,7 @@ jobs:
         shell: powershell
         run: |
           $env:SCOOP_HOME="$(Convert-Path '.\scoop_core')";
-          Copy-Item -Force .\custom_bucket\overrides\tests\*.ps1 .\scoop_core\test\;
+          Copy-Item -Force .\custom_bucket\overrides\test\*.ps1 .\scoop_core\test\;
       - id: init-and-test
         name: Init and Test Bucket
         shell: pwsh
