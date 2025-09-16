@@ -4,6 +4,7 @@
     "homepage": "https://github.com/LesFerch/WinSetView",
     "license": "MIT",
     "bin": "WinSetView.exe",
+    "persist": ["AppData"],
     "architecture": {
         "64bit": {
             "url": "https://github.com/LesFerch/WinSetView/releases/download/3.1.5/WinSetView.zip",
