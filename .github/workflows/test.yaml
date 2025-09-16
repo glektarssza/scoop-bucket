@@ -37,7 +37,7 @@ jobs:
         run: |
           $env:SCOOP_HOME="$(Convert-Path '.\scoop_core')";
           .\scoop_core\test\bin\init.ps1;
-          .\my_bucket\bin\test.ps1;
+          .\custom_bucket\bin\test.ps1;
   test-powershell-core:
     name: Test with PowerShell Core
     runs-on: windows-latest
@@ -66,6 +66,6 @@ jobs:
         name: Init and Test Bucket
         shell: pwsh
         run: |
-          $env:SCOOP_HOME="$(Convert-Path '.\scoop_core')"l;
+          $env:SCOOP_HOME="$(Convert-Path '.\scoop_core')";
           .\scoop_core\test\bin\init.ps1;
           .\custom_bucket\bin\test.ps1;
