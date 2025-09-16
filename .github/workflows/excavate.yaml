@@ -10,9 +10,6 @@ jobs:
   excavate:
     name: Excavate
     runs-on: windows-latest
-    permissions:
-      # -- Needed to write repository contents on update
-      contents: write
     steps:
       - uses: actions/checkout@main
       - name: Excavate

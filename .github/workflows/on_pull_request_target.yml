@@ -7,6 +7,9 @@ jobs:
   on-pull-request:
     name: On Pull Request
     runs-on: windows-latest
+    permissions:
+      # -- Needed to leave comments
+      issues: write
     steps:
       - uses: actions/checkout@main
       - name: PullRequestHandler
