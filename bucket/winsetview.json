@@ -7,7 +7,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/LesFerch/WinSetView/releases/download/3.1.5/WinSetView.zip",
-            "hash": "5d1168a455f5b78a6594094b65838958b692f47af6b2c9b55164d65b056e6f6b"
+            "hash": "2224c5fcd224290e2416b075d43c22f92d25b0a1ff01aae6f99c122cf4c773ef"
         }
     },
     "checkver": {
@@ -20,7 +20,7 @@
             }
         },
         "hash": {
-            "regex": "(sha(1|256|512):([a-zA-Z0-9]{64}))",
+            "regex": "Copy to clipboard digest for $basename\".{1,}value=\"([^\"]+)\"",
             "url": "https://github.com/LesFerch/WinSetView/releases/expanded_assets/$version"
         }
     }
