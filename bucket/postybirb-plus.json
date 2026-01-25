@@ -1,0 +1,27 @@
+{
+    "version": "3.1.66",
+    "description": "Remake of PostyBirb using React and NestJS.",
+    "homepage": "https://github.com/mvdicarlo/postybirb-plus",
+    "license": "BSD-3-Clause",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/mvdicarlo/postybirb-plus/releases/download/v3.1.66/postybirb-plus-3.1.66.exe",
+            "hash": "sha256:5819d0cfe6d5817cc75850d923bc23ec31195a34d488bb05995de8dd4350561e"
+        }
+    },
+    "checkver": {
+        "url": "https://github.com/mvdicarlo/postybirb-plus/releases/latest",
+        "regex": "v(?<version>[\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mvdicarlo/postybirb-plus/releases/download/v$matchVersion/postybirb-plus-$matchVersion.exe"
+            }
+        },
+        "hash": {
+            "regex": "Copy to clipboard digest for $basename\".{1,}value=\"([^\"]+)\"",
+            "url": "https://github.com/LesFerch/WinSetView/releases/expanded_assets/$version"
+        }
+    }
+}
