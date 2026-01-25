@@ -104,7 +104,7 @@ Describe 'Style constraints for non-binary project files' -ForEach @(, $script:r
         }
     }
 
-    It 'files end with a newline' {
+    It 'files ends with a newline' {
         $badFiles = @(
             foreach ($file in $script:files) {
                 # Ignore previous TestResults.xml
@@ -125,22 +125,14 @@ Describe 'Style constraints for non-binary project files' -ForEach @(, $script:r
 
     It 'non-Batch file newlines are Unix-style' {
         $badFiles = @(
-            foreach ($file in $script:files) {
-                if ($file.Extension -eq ".bat" -or $file.Extension -eq ".cmd") {
-                    return
-                }
+            foreach ($file in $files) {
                 $content = [System.IO.File]::ReadAllText($file)
                 if (!$content) {
                     throw "File contents are null: $($file)"
                 }
-                $lines = [regex]::split($content, '\n')
-                $lineCount = $lines.Count
-
-                for ($i = 0; $i -lt $lineCount; $i++) {
-                    if ( [regex]::match($lines[$i], '\r').success ) {
-                        $file
-                        break
-                    }
+                if ( [regex]::match($content, '\r\n').success ) {
+                    $file
+                    break
                 }
             }
         )
