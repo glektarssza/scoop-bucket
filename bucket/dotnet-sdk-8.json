@@ -1,0 +1,77 @@
+{
+    "version": "8.0.414",
+    "description": ".NET is a free, cross-platform, open source developer platform for building many different types of applications.",
+    "homepage": "https://www.microsoft.com/net/",
+    "license": "MIT",
+    "suggest": {
+        "vcredist": "extras/vcredist2022"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/8.0.414/dotnet-sdk-8.0.414-win-x64.zip",
+            "hash": "sha512:ae86d5d9aeff5be9db7e306e0f85f708a41cd611f3cbef99ce60a3fe48c19d18fa1137d8f632d959ebc2b032e594b6970850581dd0e2afe64b9842d59899d2d6"
+        },
+        "32bit": {
+            "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/8.0.414/dotnet-sdk-8.0.414-win-x86.zip",
+            "hash": "sha512:67468b4b3080f70fe20ce7e6728532a5237e8a6cb68e7ba96368a3d0a5ed0eea3e1062b9196955cfb28eb4f89ded6951b02cc39745ce6d2c182dec3c67d5e58b"
+        },
+        "arm64": {
+            "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/8.0.414/dotnet-sdk-8.0.414-win-arm64.zip",
+            "hash": "sha512:ca49c102173ca46fa6fe0b7d65527e8035d6ca5b2687ab09e48194b0477559c03c8c49bea1c4a2c77f8d14e68d4bf26072a1c1879be617b2e70d45fb472ac68e"
+        }
+    },
+    "env_add_path": ".",
+    "env_set": {
+        "DOTNET_ROOT": "$dir",
+        "MSBuildSDKsPath": "$dir\\sdk\\$version\\Sdks"
+    },
+    "installer": {
+        "script": [
+            "info \"Check if shared SDK directory already exists...\"",
+            "if (-not (Test-Path -Path \"$env:APPDATA/dotnet-sdks\")) {",
+            "info \"Shared SDKs path does not exist, creating...\"",
+            "New-Item -Type Directory -Path \"$env:APPDATA/dotnet-sdks\"",
+            "}",
+            "info \"Moving current SDK to shared path...\"",
+            "Move-Item -Path \"$dir/sdk/$version\" -Destination \"$env:APPDATA/dotnet-sdks/\"",
+            "Remove-Item -Recurse -Path \"$dir/sdk/\"",
+            "info \"Linking shared SDK directory to scoop app path...\"",
+            "warn \"This might fail if you can't create symbolic links!\"",
+            "New-Item -Type SymbolicLink -Path \"$dir/sdk/\" -Target \"$env:APPDATA/dotnet-sdks/\"",
+            "return $true"
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "if (-not (Test-Path -Path \"$env:APPDATA/dotnet-sdks\")) {info \"Shared SDKs path does not exist, nothing to do!\"; return $true;}",
+            "info \"Removing our SDK from the shared SDK folder...\";",
+            "Remove-Item -Recurse -Path \"$env:APPDATA/dotnet-sdks/$version/",
+            "if ((Get-ChildItem -Path \"$env:APPDATA/dotnet-sdks/\" | Measure-Object).Count -eq 0) {",
+            "info \"Shared SDK path in `\\\"$env:APPDATA/dotnet-sdks/...`\\\" is empty, deleting...",
+            "Remove-Item -Recurse -Force -Path \"$env:APPDATA/dotnet-sdks\"",
+            "}"
+        ]
+    },
+    "pre_uninstall": "info 'If the uninstall fails with a message saying that access is denied, you may need to log out of your current account, log back in and try again.'",
+    "checkver": {
+        "url": "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json",
+        "jsonpath": "$..releases-index[?(@.release-type == 'lts' && @.support-phase == 'active')].latest-sdk"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/$version/dotnet-sdk-$version-win-x64.zip"
+            },
+            "32bit": {
+                "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/$version/dotnet-sdk-$version-win-x86.zip"
+            },
+            "arm64": {
+                "url": "https://dotnetcli.azureedge.net/dotnet/Sdk/$version/dotnet-sdk-$version-win-arm64.zip"
+            }
+        },
+        "hash": {
+            "url": "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/$majorVersion.$minorVersion/releases.json",
+            "regex": "(?s)$basename.*?$sha512"
+        }
+    }
+}
