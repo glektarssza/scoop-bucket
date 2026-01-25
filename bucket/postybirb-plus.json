@@ -21,7 +21,7 @@
         },
         "hash": {
             "regex": "Copy to clipboard digest for $basename\".{1,}value=\"([^\"]+)\"",
-            "url": "https://github.com/LesFerch/WinSetView/releases/expanded_assets/$version"
+            "url": "https://github.com/LesFerch/WinSetView/releases/expanded_assets/$matchVersion"
         }
     }
 }
