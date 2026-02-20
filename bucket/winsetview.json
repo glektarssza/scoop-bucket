@@ -3,12 +3,7 @@
     "description": "Globally Set Explorer Folder Views.",
     "homepage": "https://github.com/LesFerch/WinSetView",
     "license": "MIT",
-    "shortcuts": [
-        [
-            "WinSetView.exe",
-            "WinSetView"
-        ]
-    ],
+    "shortcuts": [["WinSetView.exe", "WinSetView"]],
     "persist": "AppData",
     "architecture": {
         "64bit": {
