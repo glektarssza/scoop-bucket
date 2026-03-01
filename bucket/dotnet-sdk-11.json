@@ -90,7 +90,7 @@
             "New-Item -Type SymbolicLink -Path \"$dir/shared/\" -Target \"$env:LOCALAPPDATA/dotnet-sdk/shared/\" | Out-Null",
             "New-Item -Type SymbolicLink -Path \"$dir/templates/\" -Target \"$env:LOCALAPPDATA/dotnet-sdk/templates/\" | Out-Null",
             "info 'Writing lock file...'",
-            "$filesOperatedOn.GetEnumerator() | ForEach-Object { \"$($_.Key)=$(_.Value)\" | Out-File -Encoding utf8 -Path \"$env:LOCALAPPDATA/dotnet-sdks/$version.lock\" }",
+            "$filesOperatedOn.GetEnumerator() | ForEach-Object { \"$($_.Key)=$($_.Value)\" | Out-File -Encoding utf8 -Path \"$env:LOCALAPPDATA/dotnet-sdks/$version.lock\" }",
             "info 'Done!'",
             "return $true"
         ]
