@@ -4,16 +4,11 @@ if (-not (Test-Path -Path "$env:LOCALAPPDATA/dotnet-sdks/$version.lock")) {
     return $false
 }
 info 'Reading lock file and deleting shared dotnet data...'
-Get-Content -Path "$env:LOCALAPPDATA/dotnet-sdks/$version.lock" | Get-Item | Remove-Item -Recurse -Force
+Get-Content -Path "$env:LOCALAPPDATA/dotnet-sdks/$version.lock" | ForEach-Object { ($_ -split '=')[1] } | Get-Item | Remove-Item -Recurse -Force
+info 'Reading lock file and deleting symbolic links...'
+warn "This might fail if you can't delete symbolic links!"
+(Get-Content -Path "$env:LOCALAPPDATA/dotnet-sdks/$version.lock" | ForEach-Object { ($_ -split '=')[0] } | Get-Item).Delete()
 info 'Deleting lock file...'
 Remove-Item "$env:LOCALAPPDATA/dotnet-sdks/$version.lock"
-info 'Deleting symbolic links...'
-warn "This might fail if you can't delete symbolic links!"
-(Get-Item -Path "$dir/host/").Delete()
-(Get-Item -Path "$dir/sdk/").Delete()
-(Get-Item -Path "$dir/packs/").Delete()
-(Get-Item -Path "$dir/sdk-manifests/").Delete()
-(Get-Item -Path "$dir/shared/").Delete()
-(Get-Item -Path "$dir/templates/").Delete()
 info 'Done!'
 return $true
